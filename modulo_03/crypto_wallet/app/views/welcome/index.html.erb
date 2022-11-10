@@ -1,9 +1,6 @@
 <h1>Seja Bem-vindo!</h1>
-<p>Este é o seu portfólio de criptomoedas.</p>
 
-<p> Seu nome de tras pra frente é <%= 'Demerson'.reverse %> </p>
-
-<p>A data de hoje é: <%= Date.today%></p>
-
-<% a = '110% macho'%>
-<p> Você é: <%= a %> </p>
+<ul>
+    <li><a href="/coins">Visualizar as moedas cadastradas</a></li>
+    <li><%= link_to 'Listar moedas', coins_path%></li>
+</ul>
