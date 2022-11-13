@@ -1,5 +1,5 @@
 class WelcomeController < ApplicationController
   def index
-    @nome = "Demerson"
+    @nome = params[:nome]
   end
 end

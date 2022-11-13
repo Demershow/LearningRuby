@@ -1,12 +1,8 @@
 <h1>Seja Bem-vindo!</h1>
 <p> <strong> Data: <%= data_br(Date.today)%> </strong> </p>
 
-<ul>
-    <li><a href="/coins">Visualizar as moedas cadastradas</a></li>
-    <li><%= link_to 'Listar moedas', coins_path%></li>
-</ul>
-
+<%= render'menu'%>
 
 <p>
-    Olá, este sistema foi desenvolvido por <%= @nome%>
+    Olá, este sistema foi desenvolvido por <strong> <%= @nome%></strong>
 </p>
