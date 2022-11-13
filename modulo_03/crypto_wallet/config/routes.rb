@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   get 'welcome/index'
   resources :coins
 
+  #get '/inicio', to: "coins#index"
+  
 
   root 'welcome#index'
 
