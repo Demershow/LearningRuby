@@ -1,12 +1,14 @@
 class CoinsController < ApplicationController
-  before_action :set_coin, only: %i[ show edit update destroy ]
+  before_action :set_coin, only: [:show, :edit, :update, :destroy]
 
-  # GET /coins or /coins.json
+  # GET /coins
+  # GET /coins.json
   def index
     @coins = Coin.all
   end
 
-  # GET /coins/1 or /coins/1.json
+  # GET /coins/1
+  # GET /coins/1.json
   def show
   end
 
@@ -19,40 +21,42 @@ class CoinsController < ApplicationController
   def edit
   end
 
-  # POST /coins or /coins.json
+  # POST /coins
+  # POST /coins.json
   def create
     @coin = Coin.new(coin_params)
 
     respond_to do |format|
       if @coin.save
-        format.html { redirect_to coin_url(@coin), notice: "Coin was successfully created." }
+        format.html { redirect_to @coin, notice: 'Coin was successfully created.' }
         format.json { render :show, status: :created, location: @coin }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render :new }
         format.json { render json: @coin.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PATCH/PUT /coins/1 or /coins/1.json
+  # PATCH/PUT /coins/1
+  # PATCH/PUT /coins/1.json
   def update
     respond_to do |format|
       if @coin.update(coin_params)
-        format.html { redirect_to coin_url(@coin), notice: "Coin was successfully updated." }
+        format.html { redirect_to @coin, notice: 'Coin was successfully updated.' }
         format.json { render :show, status: :ok, location: @coin }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :edit }
         format.json { render json: @coin.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /coins/1 or /coins/1.json
+  # DELETE /coins/1
+  # DELETE /coins/1.json
   def destroy
     @coin.destroy
-
     respond_to do |format|
-      format.html { redirect_to coins_url, notice: "Coin was successfully destroyed." }
+      format.html { redirect_to coins_url, notice: 'Coin was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -63,7 +67,7 @@ class CoinsController < ApplicationController
       @coin = Coin.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
+    # Never trust parameters from the scary internet, only allow the white list through.
     def coin_params
       params.require(:coin).permit(:description, :acronym, :url_image)
     end
