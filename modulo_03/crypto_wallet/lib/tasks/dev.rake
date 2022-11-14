@@ -2,25 +2,26 @@ namespace :dev do
   desc "config dev"
   task setup: :environment do
     if Rails.env.development?
-      spinner = TTY::Spinner.new("[:spinner] Apagando Banco de dados...", format: :classic)
-    spinner.auto_spin # Automatic animation with default interval
-    %x(rails db:drop:_unsafe)
-    spinner.success("(Feito!)")
-    spinner = TTY::Spinner.new("[:spinner] Recriando o banco de dados...", format: :dots)
-    spinner.auto_spin # Automatic animation with default interval
+    show_spinner("Apagando bd") do 
+      %x(rails db:drop:_unsafe)
+    end
+    show_spinner("Criando bd...") do 
     %x(rails db:create)
-    spinner.success("(Feito!)")
-    spinner = TTY::Spinner.new("[:spinner] Migrando o banco de dados...", format: :dots)
-    spinner.auto_spin # Automatic animation with default interval
-    %x(rails db:migrate)
-    spinner.success("(Feito!)")
-    spinner = TTY::Spinner.new("[:spinner] Povoando o banco de dados...", format: :dots)
-    spinner.auto_spin # Automatic animation with default interval
-    %x(rails db:seed)
-     spinner.success("(Concluido!)")
+    end
+    show_spinner("Migrando bd...") do 
+      %x(rails db:migrate)
+      end
+    show_spinner("Povoando bd...") do 
+      %x(rails db:seed)
+      end
     else
-      puts "Not in development"
+    puts "Not in development"
     end
   end
-
+  def show_spinner(msg_start, msg_end = 'Concluido.')
+    spinner = TTY::Spinner.new("[:spinner] #{msg_start}", format: :dots)
+    spinner.auto_spin # Automatic animation with default interval
+     yield
+     spinner.success("(#{msg_end})")
+  end
 end
