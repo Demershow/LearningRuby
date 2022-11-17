@@ -6,8 +6,8 @@ namespace :dev do
     show_spinner("Criando bd..."){%x(rails db:create)}
     show_spinner("Migrando bd..."){%x(rails db:migrate)}
     show_spinner("Povoando bd..."){%x(rails db:seed)}
-    %x(rails dev:add_coins)
     %x(rails dev:add_mining_type)
+    %x(rails dev:add_coins)
       else
     puts "Not in development"
     end
@@ -25,17 +25,20 @@ namespace :dev do
        {
           description: "Bitcoin",
           acronym: "BTC",
-          url_image: "https://s2.coinmarketcap.com/static/img/coins/64x64/1.png"
+          url_image: "https://s2.coinmarketcap.com/static/img/coins/64x64/1.png",
+          mining_type: MiningType.find_by(acronym: 'PoW')
      },
      {
           description: "Ethereum",
           acronym: "ETH",
-          url_image: "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png"
+          url_image: "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+          mining_type: MiningType.all.sample
      },
      {
           description: "Dash",
           acronym: 'Dash',
-          url_image: "https://s2.coinmarketcap.com/static/img/coins/64x64/131.png"
+          url_image: "https://s2.coinmarketcap.com/static/img/coins/64x64/131.png",  
+          mining_type: MiningType.all.sample  
      },
     ]
   
